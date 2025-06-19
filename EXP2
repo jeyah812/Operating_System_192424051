@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    FILE *source, *dest;
+    char ch;
+
+    source = fopen("source.txt", "r");
+    dest = fopen("dest.txt", "w");
+
+    if (source == NULL || dest == NULL) {
+        printf("File open error!\n");
+        return 1;
+    }
+
+    while ((ch = fgetc(source)) != EOF) {
+        fputc(ch, dest);
+    }
+
+    printf("File copied successfully.\n");
+
+    fclose(source);
+    fclose(dest);
+
+    return 0;
+}
+
+OUTPUT:
+File copied successfully.
