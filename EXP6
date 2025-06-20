@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int main() {
+    int i, n, time, remain, temp = 0, tq;
+    int wt = 0, tat = 0;
+    int bt[10], rt[10];
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+    remain = n;
+
+    for (i = 0; i < n; i++) {
+        printf("Enter Burst Time for P%d: ", i + 1);
+        scanf("%d", &bt[i]);
+        rt[i] = bt[i];
+    }
+
+    printf("Enter Time Quantum: ");
+    scanf("%d", &tq);
+
+    printf("\nProcess\tTurnaround Time\tWaiting Time\n");
+    for (time = 0, i = 0; remain != 0;) {
+        if (rt[i] > 0) {
+            if (rt[i] > tq) {
+                time += tq;
+                rt[i] -= tq;
+            } else {
+                time += rt[i];
+                wt += time - bt[i];
+                tat += time;
+                printf("P%d\t%d\t\t%d\n", i + 1, time, time - bt[i]);
+                rt[i] = 0;
+                remain--;
+            }
+        }
+        i = (i + 1) % n;
+    }
+
+    printf("\nAverage Waiting Time: %.2f", (float)wt / n);
+    printf("\nAverage Turnaround Time: %.2f\n", (float)tat / n);
+    return 0;
+}
+Input:
+P1: BT = 5
+P2: BT = 3
+P3: BT = 1
+P4: BT = 2
+Time Quantum = 2
+Output:
+Process	Turnaround Time	Waiting Time
+P3	7	6
+P4	9	7
+P2	10	7
+P1	14	9
+Average Waiting Time: 7.25
+Average Turnaround Time: 10.00
+
