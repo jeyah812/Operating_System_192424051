@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+struct emp {
+    int id;
+    char name[20];
+    float salary;
+};
+
+int main() {
+    struct emp e;
+    FILE *fp;
+    int ch, pos;
+
+    do {
+        printf("\n1. Write\n2. Read\n3. Exit\nChoice: ");
+        scanf("%d", &ch);
+
+        switch (ch) {
+        case 1:
+            fp = fopen("emp.dat", "ab");
+            printf("Enter ID, Name, Salary: ");
+            scanf("%d %s %f", &e.id, e.name, &e.salary);
+            fwrite(&e, sizeof(e), 1, fp);
+            fclose(fp);
+            break;
+        case 2:
+            fp = fopen("emp.dat", "rb");
+            printf("Enter record number to read: ");
+            scanf("%d", &pos);
+            fseek(fp, (pos - 1) * sizeof(e), SEEK_SET);
+            fread(&e, sizeof(e), 1, fp);
+            printf("ID: %d Name: %s Salary: %.2f\n", e.id, e.name, e.salary);
+            fclose(fp);
+            break;
+        }
+    } while (ch != 3);
+
+    return 0;
+}
+OUTPUT:
+ID: 1 Name: Arun Salary: 55000.00
