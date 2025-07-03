@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+// Function executed by thread 1
+void* threadFunction1(void* arg) {
+    for (int i = 1; i <= 5; i++) {
+        printf("Thread 1 - Count: %d\n", i);
+        sleep(1);
+    }
+    return NULL;
+}
+
+// Function executed by thread 2
+void* threadFunction2(void* arg) {
+    for (int i = 1; i <= 5; i++) {
+        printf("Thread 2 - Count: %d\n", i);
+        sleep(1);
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+
+    // Creating two threads
+    pthread_create(&t1, NULL, threadFunction1, NULL);
+    pthread_create(&t2, NULL, threadFunction2, NULL);
+
+    // Wait for both threads to complete
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+
+    printf("Main thread finished.\n");
+    return 0;
+}
+OUTPUT:
+Thread 1 - Count: 1
+Thread 2 - Count: 1
+Thread 1 - Count: 2
+Thread 2 - Count: 2
+Thread 1 - Count: 3
+Thread 2 - Count: 3
+Thread 1 - Count: 4
+Thread 2 - Count: 4
+Thread 1 - Count: 5
+Thread 2 - Count: 5
+Main thread finished.
