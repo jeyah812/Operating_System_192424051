@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int main() {
+    int files[50], startBlock, length, i, j, k, n;
+    for (i = 0; i < 50; i++)
+        files[i] = 0;
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Enter starting block and length of file %d: ", i + 1);
+        scanf("%d%d", &startBlock, &length);
+        int flag = 0;
+        for (j = startBlock; j < startBlock + length; j++) {
+            if (files[j] == 1) {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            for (j = startBlock; j < startBlock + length; j++)
+                files[j] = 1;
+            printf("File %d allocated from block %d to %d\n", i + 1, startBlock, startBlock + length - 1);
+        } else {
+            printf("File %d allocation failed. Blocks already allocated.\n", i + 1);
+        }
+    }
+
+    return 0;
+}
+INPUT:
+Number of files = 2  
+File 1: Start = 4, Length = 3  
+File 2: Start = 6, Length = 4
+OUTPUT:
+File 1 allocated from block 4 to 6  
+File 2 allocation failed. Blocks already allocated.
