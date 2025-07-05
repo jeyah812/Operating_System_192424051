@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int start[10], length[10], n, i;
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+    for (i = 0; i < n; i++) {
+        printf("Enter start block and length of file %d: ", i + 1);
+        scanf("%d %d", &start[i], &length[i]);
+    }
+    printf("\nFile\tStart\tLength\tBlocks\n");
+    for (i = 0; i < n; i++) {
+        printf("%d\t%d\t%d\t", i + 1, start[i], length[i]);
+        for (int j = 0; j < length[i]; j++)
+            printf("%d ", start[i] + j);
+        printf("\n");
+    }
+    return 0;
+}
+Files: 2  
+File 1: Start = 5, Length = 3  
+File 2: Start = 10, Length = 2
+File	Start	Length	Blocks
+1	5	3	5 6 7  
+2	10	2	10 11
