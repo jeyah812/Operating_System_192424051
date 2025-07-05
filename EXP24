@@ -1,0 +1,22 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    int fd;
+    char buffer[100];
+
+    // Create and write to file
+    fd = open("osfile.txt", O_CREAT | O_WRONLY, 0644);
+    write(fd, "Hello, OS World!\n", 17);
+    close(fd);
+
+    // Read from file
+    fd = open("osfile.txt", O_RDONLY);
+    read(fd, buffer, sizeof(buffer));
+    printf("Content Read: %s\n", buffer);
+    close(fd);
+
+    return 0;
+}
+Content Read: Hello, OS World!
