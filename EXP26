@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *fp;
+    char filename[20], data[100];
+    int choice;
+
+    while (1) {
+        printf("\n1. Create File\n2. Write to File\n3. Read File\n4. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter filename: ");
+                scanf("%s", filename);
+                fp = fopen(filename, "w");
+                if (fp) printf("File created.\n");
+                fclose(fp);
+                break;
+            case 2:
+                fp = fopen(filename, "a");
+                printf("Enter data: ");
+                scanf(" %[^\n]", data);
+                fprintf(fp, "%s\n", data);
+                fclose(fp);
+                break;
+            case 3:
+                fp = fopen(filename, "r");
+                printf("File content:\n");
+                while (fgets(data, sizeof(data), fp)) printf("%s", data);
+                fclose(fp);
+                break;
+            case 4: exit(0);
+            default: printf("Invalid choice!\n");
+        }
+    }
+    return 0;
+}
+1 → myfile.txt  
+2 → Hello Lab  
+3 → (displays file)
+File created.  
+Data written.  
+File content:  
+Hello Lab
