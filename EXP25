@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+int main() {
+    int fd = open("sample.txt", O_CREAT | O_RDWR, 0644);
+    write(fd, "GATE OS Lab", 11);
+    lseek(fd, 0, SEEK_SET);
+
+    char buffer[20];
+    read(fd, buffer, 11);
+    buffer[11] = '\0';
+    printf("Read: %s\n", buffer);
+    close(fd);
+
+    struct stat fileStat;
+    stat("sample.txt", &fileStat);
+    printf("File size: %ld bytes\n", fileStat.st_size);
+
+    DIR *d = opendir(".");
+    struct dirent *dir;
+    printf("Files in current directory:\n");
+    while ((dir = readdir(d)) != NULL)
+        printf("%s\n", dir->d_name);
+    closedir(d);
+
+    return 0;
+}
+Read: GATE OS Lab  
+File size: 11 bytes  
+Files in current directory:  
+.  
+..  
+sample.txt  
+a.out  
+...
